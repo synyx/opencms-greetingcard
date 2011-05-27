@@ -1,0 +1,98 @@
+Usage of Synyx Greetingcard Module
+**********************************
+
+Features:
+---------
+* Greetingcards can be designed by an administrator using images uploaded to OpenCms
+* Greetingcards can be categorized
+* Module can be configured to allow only whitelisted domains as recipient adresses
+* Users can send greetingcards to any recipient allowed and insert custom text in the image
+* Greetingcards can be send immediately or in a range one year from creating it
+* Internal adresses receive the greetingcard as link, external adresses receive it as attachment
+* Administration view for statistics about sent greetingcards
+* Texts can be configured in properties-files
+* Template-like configuration of mail messages
+
+Folder structure:
+-----------------
+The module data is located under /sites/default/greetingcards. There are three folders:
+* archive: contains the sent greetingcards
+* content: contains the categories and the greetingcard templates
+* MailsToSend: queue for greetingcards to be send later 
+
+The JSPs for the frontend are located in the module directory in elements. If you include them in other templates you have to adjust the links in all jsps. 
+
+Configuration:
+--------------
+Currently it is a requirement to have a database table configured that can be used to check for existing domains.
+
+The main configuration file is located under /system/modules/com.synyx.greetingcards/conf/configuration. It contains the following fields:
+* Database section
+** UseWhitelist: when checked only whitelisted domains configured in a database table are allowed
+** DatabaseUrl: The connection string for the database containing the whitelist
+** DatabaseUser: The username for the database
+** DatabasePassword: The password for the database
+** TableName: The table containing the whitelist
+** ColumnName: The column name containing the domains (e.g. waz.de, synyx.de)
+* Thumbnail section
+** ThumbnailHeight: The height of the generated thumbnail for greetingcard templates
+** ThumbnailWidth: The width of the generated thumbnail for greetingcard templates
+** ThumbnailQuality: The quality of the generated thumbnail
+* XMLID: The id of the greetingcard schema (only change if also changed in opencms-modules.xml)
+* DeleteCardsAfterDays: Days after which the cards are erased completely from VFS (removed from statistics also)
+* ArchiveFolder: the folder where the cards can be viewed, send as link in mails
+* GreetingcardFolder: the folder containing the greetingcard templates and categories
+* TempFolder: the folder containing the mails that are to be send in the future
+
+Creating a greetingcard template:
+---------------------------------
+The folder /sites/default/greetingcards/content/ (or the one configured) contains folders that are treated as categories for greetincards. To create a new category the following steps have to be performed:
+* Create a new folder in /sites/default/greetingcards/content/
+* Add the folder to navigation and assign a NavText to it
+
+To create a new greetingcard template:
+* Create an XML content of type greeting card
+It contains the following fields:
+* Image: The background image of the greeting card (a size of 800x600px has proven to be good choice)
+* Description
+* FontColor
+* FontSize
+* FontType: by default it can be chosen from all system fonts 
+* FontItalic
+* FontBold
+* FontUnderline
+* FontPlain
+* PictureTopX: the x coordinate of the top left corner of the box containing the text in the image
+* PictureTopY: the y coordinate of the top left corner of the box containing the text in the image
+* PictureBottomX: the x coordinate of the bottom right corner of the box containing the text in the image
+* PictureBottomY: the y coordinate of the bottom right corner of the box containing the text in the image
+* MailText: the text used as mail body of the notification mails
+
+Positioning:
+The position of the box needs a little bit training to find a good spot on the image. The coordinates are counted from top left corner, which is (0, 0)
+
+MailText:
+Some placeholders are supported to design custom mail bodies. Among those are:
+* url: the absolute url where the card can be accessed
+* authorName: the name of the sender
+* authorMail: the email address of the sender
+* receiverName: the name of the recipient
+* receiverAddress: the email address of the recipient
+
+Create a greetingcard from template:
+------------------------------------
+The JSP elements/chooseImage.jsp is the starting point for sending a greetingcard. It presents all categories available. When choosing a category all greetingcard templates of this category are presented as thumbnails. When choosing a greetingcard template you have to insert data. The following fields can be filled out (displayed in german):
+* your name: the name of the sender
+* your address: the email address of the sender
+* name of recipient
+* address of recipient (if whitelist is used a dropdown for the allowed domains is presented)
+* subject for greetingcard mail
+* text for the greetingcard, displayed in the box of the image
+* send date (send now or a date in the future)
+When data is filled out a preview of the card is presented. If everything is correct, the card can be submitted.
+
+Statistics:
+-----------
+In administration view there is a new point greetingcard statistics. You can filter the greetingcards sent by internal/external and by date.
+
+

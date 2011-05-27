@@ -1,0 +1,42 @@
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	
+	<xsd:include schemaLocation="opencms://opencms-xmlcontent.xsd"/>		
+	<xsd:element name="TextFields" type="OpenCmsTextFields"/>
+
+        <xsd:complexType name="OpenCmsTextFields">
+		<xsd:sequence>
+			<xsd:element name="TextField" type="OpenCmsTextField" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+        <xsd:complexType name="OpenCmsTextField">
+		<xsd:sequence>
+                        <xsd:element name="Description" type="OpenCmsString" />
+                        <xsd:element name="FontColor" type="OpenCmsColor" />
+                        <xsd:element name="FontSize" type="OpenCmsString" />
+                        <xsd:element name="FontType" type="OpenCmsString" />
+
+                        <xsd:element name="FontItalic" type="OpenCmsBoolean" />
+                        <xsd:element name="FontBold" type="OpenCmsBoolean" />
+                        <xsd:element name="FontUnderline" type="OpenCmsBoolean" />
+                        <xsd:element name="FontPlain" type="OpenCmsBoolean" />
+
+                        <xsd:element name="PictureTop-X" type="OpenCmsString" />
+                        <xsd:element name="PictureTop-Y" type="OpenCmsString" />
+                        <xsd:element name="PictureBottom-X" type="OpenCmsString" />
+                        <xsd:element name="PictureBottom-Y" type="OpenCmsString" />
+		</xsd:sequence>
+		<xsd:attribute name="language" type="OpenCmsLocale" use="optional"/>
+	</xsd:complexType>
+
+	<xsd:annotation>
+		<xsd:appinfo>	
+                        <layouts>
+		            <layout element="FontType" widget="FontTypeSelectorWidget" />
+		            <layout element="FontSize" widget="ComboWidget" configuration="value='6'|value='7'|value='8'|value='9'|value='10'|value='12' default='true'|value='14'|value='16'|value='18'|value='20'|value='25'|value='30'|value='40'" />
+                        </layouts>
+                        <defaults />
+		</xsd:appinfo>
+	</xsd:annotation> 
+</xsd:schema>

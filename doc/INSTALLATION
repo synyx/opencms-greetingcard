@@ -1,0 +1,23 @@
+Installation instructions for Synyx Greetingcard Module
+*******************************************************
+
+Prerequisites:
+---------------
+The module is tested for the following components:
+JDK 5, Tomcat 5.5, MySQL 5, Ubuntu Linux.
+To use the module on Linux either an X server must be available for the user running Tomcat or the Java Virtual Machine has to be started using the parameter java.awt.headless=true.
+The OpenCms mailing has to be configured for a mail server that accepts outgoing mails.
+TemplateOne module is required
+
+Installation of the module:
+------------------------
+Besides uploading the module requires certain changes to be made to some config files.
+Changes should be made in the order given here.
+
+1. Upload of the module via Administration/Module Management
+2. Modification of config files located in %TOMCAT_HOME%/webapps/opencms/WEB-INF/config.
+2a. In opencms-modules.xml it should be checked, if the IDs used by the module are already in use. The module uses the IDs 202 and 203 per default..
+2b. The widget for reading the system fonts has to be inserted in opencms-vfs.xml. Below the node <widgets> the element <widget class="com.synyx.greetingcard.CmsFontTypeSelectorWidget" alias="FontTypeSelectorWidget"/> has to be inserted.
+2c. Check that no old tasks of the module are scheduled in opencms-system.xml if the module has been installed before
+3. Restart the opencms context or the servlet engine.
+
