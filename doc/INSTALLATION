@@ -17,7 +17,7 @@ Changes should be made in the order given here.
 1. Upload of the module via Administration/Module Management
 2. Modification of config files located in %TOMCAT_HOME%/webapps/opencms/WEB-INF/config.
 2a. In opencms-modules.xml it should be checked, if the IDs used by the module are already in use. The module uses the IDs 202 and 203 per default..
-2b. The widget for reading the system fonts has to be inserted in opencms-vfs.xml. Below the node <widgets> the element <widget class="com.synyx.greetingcard.CmsFontTypeSelectorWidget" alias="FontTypeSelectorWidget"/> has to be inserted.
+2b. The widget for reading the system fonts has to be inserted in opencms-vfs.xml. Below the node <widgets> the element <widget class="com.synyx.greetingcard.cms.CmsFontTypeSelectorWidget" alias="FontTypeSelectorWidget"/> has to be inserted.
 2c. Check that no old tasks of the module are scheduled in opencms-system.xml if the module has been installed before
 3. Restart the opencms context or the servlet engine.
 
